@@ -3,6 +3,16 @@
 version = 4
 
 [[package]]
+name = "bounded-taskpool"
+version = "0.1.0"
+dependencies = [
+ "pretty_assertions",
+ "thiserror",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "diff"
 version = "0.1.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -57,16 +67,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
-]
-
-[[package]]
-name = "taskpool"
-version = "0.1.0"
-dependencies = [
- "pretty_assertions",
- "thiserror",
- "tokio",
- "tracing",
 ]
 
 [[package]]

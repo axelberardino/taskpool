@@ -8,6 +8,15 @@ lets you fail fast instead of waiting forever. A drain signal is returned at
 construction time so you can wait for all scheduled work to finish after
 calling `trigger_stop`.
 
+## Installation
+
+Add `Taskpool` to your `Cargo.toml`:
+
+```toml
+[dependencies]
+bounded-taskpool = "0.1.0" # Replace with the latest version
+```
+
 ## Usage
 
 Add the crate and use it inside a Tokio runtime:

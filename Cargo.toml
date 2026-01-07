@@ -1,5 +1,5 @@
 [package]
-name = "taskpool"
+name = "bounded-taskpool"
 version = "0.1.0"
 edition = "2024"
 description = "Bounded taskpool with backpressure"
