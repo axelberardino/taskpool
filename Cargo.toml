@@ -7,8 +7,8 @@ license-file = "LICENSE"
 homepage = "https://github.com/axelberardino/taskpool"
 repository = "https://github.com/axelberardino/taskpool"
 readme = "README.md"
-keywords = ["taskpool", "pool", "joinset", "queue", "backpressure", "concurrency"]
-categories = ["pool", "task", "backpressure"]
+keywords = ["taskpool", "pool", "joinset", "queue", "backpressure"]
+categories = ["concurrency"]
 
 [dependencies]
 thiserror = "2.0"
