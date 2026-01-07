@@ -1,6 +1,6 @@
-# taskpool
+# TaskPool
 
-Bounded Tokio task pool with backpressure and ordered scheduling.
+Bounded tokio task pool with backpressure and ordered scheduling.
 
 The pool accepts async tasks, enforces a maximum concurrency, and buffers
 incoming tasks in a bounded queue. When the queue is full, `spawn_with_timeout`
@@ -10,7 +10,7 @@ calling `trigger_stop`.
 
 ## Installation
 
-Add `Taskpool` to your `Cargo.toml`:
+Add `TaskPool` to your `Cargo.toml`:
 
 ```toml
 [dependencies]
@@ -52,3 +52,37 @@ async fn main() {
 
 If you want to wait indefinitely for space in the queue, use `spawn` instead of
 `spawn_with_timeout`.
+
+The `drained` receiver returned by `TaskPool::new` resolves once the stop marker
+is observed (and trigger by `trigger_stop`), all queued tasks before it have
+run, and the pool finishes draining. Await it after `trigger_stop` when you need
+to know all scheduled work has completed.
+
+## API Reference
+
+The main components of the `TaskPool` API are:
+* `TaskPool::new(concurrency, queue_size) -> (TaskPool, drained)`: build a
+  bounded pool and receive a `drained` oneshot you can await after calling
+  `trigger_stop`.
+* `TaskPool::concurrency() -> usize`: return the configured maximum number of
+  concurrent tasks.
+* `TaskPool::queue_size() -> usize`: return the configured backpressure queue
+  size.
+* `TaskPool::spawn(task) -> Result<(), TaskPoolError>`: enqueue a task, waiting
+  indefinitely for space.
+* `TaskPool::spawn_with_timeout(task, timeout) -> Result<(), TaskPoolError>`:
+  enqueue a task, failing if the queue remains full past `timeout`.
+* `TaskPool::trigger_stop() -> Result<(), TaskPoolError>`: stop consuming the
+  queue after a sentinel marker.
+* `TaskPoolError`: errors returned when scheduling fails (`SendTimeout`,
+  `ChannelClosed`, `FailedToSend`).
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an
+issue on GitHub.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE)
+file for details.
