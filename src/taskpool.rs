@@ -25,6 +25,7 @@ enum InnerHandle {
 }
 
 /// Bounded pool of tasks
+#[derive(Clone, Debug)]
 pub struct TaskPool {
     /// Ordering queue to schedule tasks while keeping the order
     ordering_queue: Sender<InnerTask>,
