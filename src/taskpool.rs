@@ -119,12 +119,14 @@ impl TaskPool {
     }
 
     /// Get the concurrency of the pool
-    pub fn concurrency(&self) -> usize {
+    #[must_use]
+    pub const fn concurrency(&self) -> usize {
         self.concurrency
     }
 
-    /// Get the queu size of the pool
-    pub fn queue_size(&self) -> usize {
+    /// Get the queue size of the pool
+    #[must_use]
+    pub const fn queue_size(&self) -> usize {
         self.queue_size
     }
 

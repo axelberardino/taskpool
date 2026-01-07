@@ -1,5 +1,6 @@
 #[cfg(test)]
 mod tests {
+    use pretty_assertions::assert_eq;
     use std::num::NonZeroUsize;
     use std::{
         sync::{

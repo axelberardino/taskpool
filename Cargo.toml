@@ -7,16 +7,17 @@ license-file = "LICENSE"
 homepage = "https://github.com/axelberardino/taskpool"
 repository = "https://github.com/axelberardino/taskpool"
 readme = "README.md"
-keywords = ["taskpool", "pool", "joinset", "queue"]
-categories = ["pool", "task"]
+keywords = ["taskpool", "pool", "joinset", "queue", "backpressure", "concurrency"]
+categories = ["pool", "task", "backpressure"]
 
 [dependencies]
 thiserror = "2.0"
-tokio = { version = "1.49", features = ["full"] }
+tokio = { version = "1.49", features = ["rt", "time", "sync"] }
 tracing = "0.1"
 
 [dev-dependencies]
 pretty_assertions = "1.4.1"
+tokio = { version = "1.49", features = ["rt", "time", "macros", "sync"] }
 
 [lints.rust]
 missing_docs = "warn"
@@ -85,7 +86,6 @@ manual_string_new = "deny"
 many_single_char_names = "deny"
 map_err_ignore = "deny"
 match_bool = "deny"
-match_on_vec_items = "deny"
 match_same_arms = "deny"
 mem_forget = "deny"
 mismatching_type_param_order = "deny"
@@ -125,7 +125,6 @@ similar_names = "deny"
 single_char_lifetime_names = "deny"
 string_add = "deny"
 string_add_assign = "deny"
-string_to_string = "deny"
 struct_excessive_bools = "deny"
 suboptimal_flops = "deny"
 tests_outside_test_module = "deny"
