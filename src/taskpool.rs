@@ -36,7 +36,37 @@ pub struct TaskPool {
 }
 
 impl TaskPool {
-    /// Create a new `Self`
+    /// Create a new taskpool with a given concurrency and queue size (for
+    /// backpressure).
+    ///
+    /// ```rust
+    /// use std::num::NonZeroUsize;
+    /// use std::time::Duration;
+    /// use taskpool::TaskPool;
+    ///
+    /// #[tokio::main]
+    /// async fn main() {
+    ///     let (pool, drained) = TaskPool::new(
+    ///         NonZeroUsize::new(4).expect("non-zero concurrency"),
+    ///         NonZeroUsize::new(64).expect("non-zero queue size"),
+    ///     );
+    ///
+    ///     for i in 0..10 {
+    ///         pool.spawn_with_timeout(
+    ///             async move {
+    ///                 println!("job {i}");
+    ///                 tokio::time::sleep(Duration::from_millis(50)).await;
+    ///             },
+    ///             Duration::from_millis(250),
+    ///         )
+    ///         .await
+    ///         .expect("schedule task");
+    ///     }
+    ///
+    ///     pool.trigger_stop().await.expect("stop accepted");
+    ///     drained.await.expect("pool drained");
+    /// }
+    /// ```
     #[must_use]
     pub fn new(
         concurrency: NonZeroUsize,
